@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meowsys | Facial Recognition Attendance</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="aurora"></div>
+    <div class="grain"></div>
+
+    <header class="top-bar">
+      <div class="brand">
+        <span class="brand-mark">M</span>
+        <div>
+          <p class="brand-title">Meowsys</p>
+          <p class="brand-subtitle">Attendance Intelligence Suite</p>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#insights">Insights</a>
+        <a href="#integrations">Integrations</a>
+      </nav>
+      <button class="ghost-btn" id="launchButton">Launch Session</button>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div class="hero-copy">
+          <div class="pill">Facial Recognition Attendance</div>
+          <h1>
+            Make every school day effortless with
+            <span>light-speed attendance</span>.
+          </h1>
+          <p>
+            Deliver a premium attendance experience with privacy-first facial recognition,
+            real-time classroom insights, and a futuristic interface designed to impress.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-btn" id="startNow">Start Attendance</button>
+            <button class="secondary-btn">View Demo</button>
+          </div>
+          <div class="hero-metrics">
+            <div>
+              <h3>99.2%</h3>
+              <p>Recognition accuracy</p>
+            </div>
+            <div>
+              <h3>1.6s</h3>
+              <p>Average check-in</p>
+            </div>
+            <div>
+              <h3>320+</h3>
+              <p>Schools onboarded</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="glow-card">
+            <div class="camera-frame">
+              <div class="camera-status">
+                <span class="dot"></span>
+                Live capture · <span id="liveTime">08:42</span>
+              </div>
+              <div class="face-grid"></div>
+              <div class="scan-line"></div>
+              <div class="camera-footer">
+                <div>
+                  <p class="label">Active class</p>
+                  <h4>Grade 10 · Physics Lab</h4>
+                </div>
+                <button class="mini-btn">Sync roster</button>
+              </div>
+            </div>
+            <div class="insight-strip">
+              <div>
+                <p class="label">Checked in</p>
+                <h4>28/30</h4>
+              </div>
+              <div>
+                <p class="label">Average mood</p>
+                <h4>Focused</h4>
+              </div>
+              <div>
+                <p class="label">Noise level</p>
+                <h4>Low</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+          <h2>Real-time attendance dashboard</h2>
+          <p>
+            Instant visibility into every classroom. Track arrivals, late check-ins, and
+            engagement scores with AI-powered insights.
+          </p>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel">
+            <div class="panel-header">
+              <h3>Today’s attendance</h3>
+              <span class="badge">Live</span>
+            </div>
+            <ul class="attendance-list" id="attendanceList"></ul>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <h3>Recognition timeline</h3>
+              <span class="badge accent">Auto-tagged</span>
+            </div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="avatar">AP</div>
+                <div>
+                  <p>Amelia Park checked in · Lab 3</p>
+                  <span>08:31 AM</span>
+                </div>
+                <span class="status success">On time</span>
+              </div>
+              <div class="timeline-item">
+                <div class="avatar">JD</div>
+                <div>
+                  <p>Jayden Lopez checked in · East Wing</p>
+                  <span>08:33 AM</span>
+                </div>
+                <span class="status success">On time</span>
+              </div>
+              <div class="timeline-item">
+                <div class="avatar">RC</div>
+                <div>
+                  <p>Rina Choi flagged · Verified with ID</p>
+                  <span>08:38 AM</span>
+                </div>
+                <span class="status warning">Manual</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel tall" id="insights">
+            <div class="panel-header">
+              <h3>AI insights</h3>
+              <button class="ghost-btn small">Export</button>
+            </div>
+            <div class="insight-cards">
+              <div class="insight-card">
+                <h4>Late arrivals forecast</h4>
+                <p>Predictive model highlights 2 students likely to arrive late.</p>
+                <div class="progress">
+                  <div style="width: 78%"></div>
+                </div>
+              </div>
+              <div class="insight-card">
+                <h4>Attendance anomalies</h4>
+                <p>0 duplicate recognitions detected in the last 7 days.</p>
+                <div class="progress">
+                  <div style="width: 96%"></div>
+                </div>
+              </div>
+              <div class="insight-card">
+                <h4>Engagement signal</h4>
+                <p>Classroom sentiment is trending positive across all labs.</p>
+                <div class="progress">
+                  <div style="width: 88%"></div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="integrations" id="integrations">
+        <div class="integration-copy">
+          <h2>Seamless integrations for every school system</h2>
+          <p>
+            Plug into your SIS, timetable tools, and security dashboards. Automatic roster
+            syncing and export-ready reports keep administrators in control.
+          </p>
+        </div>
+        <div class="integration-grid">
+          <div class="integration-card">
+            <h4>Privacy-first by design</h4>
+            <p>On-device matching keeps student biometrics secure and encrypted.</p>
+          </div>
+          <div class="integration-card">
+            <h4>Multi-campus ready</h4>
+            <p>Monitor campuses, buildings, and classrooms with one unified console.</p>
+          </div>
+          <div class="integration-card">
+            <h4>Instant notifications</h4>
+            <p>Alert guardians and staff the moment attendance is recorded.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <p class="brand-title">Meowsys</p>
+        <p>Attendance so beautiful it feels futuristic.</p>
+      </div>
+      <button class="primary-btn">Request a pilot</button>
+    </footer>
+
+    <div class="modal" id="sessionModal" aria-hidden="true">
+      <div class="modal-content">
+        <div>
+          <h3>Start a live attendance session</h3>
+          <p>Connect your classroom camera and roster in seconds.</p>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-btn" id="closeModal">Cancel</button>
+          <button class="primary-btn">Connect device</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
