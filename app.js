@@ -12,6 +12,12 @@ const sessionModal = document.getElementById("sessionModal");
 const launchButton = document.getElementById("launchButton");
 const startNow = document.getElementById("startNow");
 const closeModal = document.getElementById("closeModal");
+const connectDevice = document.getElementById("connectDevice");
+const cameraFeed = document.getElementById("cameraFeed");
+const cameraMessage = document.getElementById("cameraMessage");
+const cameraOverlay = document.querySelector(".camera-overlay");
+
+let activeStream = null;
 
 const formatTime = (date) =>
   date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
@@ -50,9 +56,51 @@ const toggleModal = (show) => {
   sessionModal.setAttribute("aria-hidden", (!show).toString());
 };
 
+const setCameraMessage = (message, isLive = false) => {
+  if (cameraMessage) {
+    cameraMessage.textContent = message;
+  }
+  if (cameraOverlay) {
+    cameraOverlay.classList.toggle("hidden", isLive);
+  }
+};
+
+const stopCamera = () => {
+  if (activeStream) {
+    activeStream.getTracks().forEach((track) => track.stop());
+    activeStream = null;
+  }
+};
+
+const startCamera = async () => {
+  if (!navigator.mediaDevices?.getUserMedia) {
+    setCameraMessage("Camera unavailable in this browser.");
+    return;
+  }
+
+  try {
+    stopCamera();
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user" },
+      audio: false,
+    });
+    activeStream = stream;
+    if (cameraFeed) {
+      cameraFeed.srcObject = stream;
+    }
+    setCameraMessage("Live feed active", true);
+  } catch (error) {
+    setCameraMessage("Camera blocked. Allow permission to go live.");
+  }
+};
+
 launchButton?.addEventListener("click", () => toggleModal(true));
 startNow?.addEventListener("click", () => toggleModal(true));
 closeModal?.addEventListener("click", () => toggleModal(false));
+connectDevice?.addEventListener("click", () => {
+  toggleModal(false);
+  startCamera();
+});
 
 sessionModal?.addEventListener("click", (event) => {
   if (event.target === sessionModal) {
@@ -63,3 +111,8 @@ sessionModal?.addEventListener("click", (event) => {
 renderAttendance();
 updateClock();
 setInterval(updateClock, 1000);
+setCameraMessage("Camera offline · Click “Start Attendance” to connect");
+
+window.addEventListener("beforeunload", () => {
+  stopCamera();
+});

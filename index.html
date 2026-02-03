@@ -71,6 +71,14 @@
                 <span class="dot"></span>
                 Live capture · <span id="liveTime">08:42</span>
               </div>
+              <div class="camera-shell">
+                <video id="cameraFeed" autoplay playsinline muted></video>
+                <div class="camera-overlay">
+                  <div class="camera-message" id="cameraMessage">
+                    Camera offline · Click “Start Attendance” to connect
+                  </div>
+                </div>
+              </div>
               <div class="face-grid"></div>
               <div class="scan-line"></div>
               <div class="camera-footer">
@@ -223,7 +231,7 @@
         </div>
         <div class="modal-actions">
           <button class="secondary-btn" id="closeModal">Cancel</button>
-          <button class="primary-btn">Connect device</button>
+          <button class="primary-btn" id="connectDevice">Connect device</button>
         </div>
       </div>
     </div>

@@ -257,6 +257,47 @@ button {
   position: relative;
 }
 
+.camera-shell {
+  position: relative;
+  margin-top: 18px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(125, 249, 255, 0.16);
+  background: rgba(6, 10, 20, 0.7);
+  min-height: 180px;
+}
+
+#cameraFeed {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.1) contrast(1.05);
+}
+
+.camera-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(120deg, rgba(8, 12, 26, 0.5), rgba(12, 16, 32, 0.1));
+  color: var(--text);
+  font-weight: 500;
+  text-align: center;
+  padding: 12px 18px;
+  transition: opacity 0.3s ease;
+}
+
+.camera-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.camera-message {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
 .scan-line {
   position: absolute;
   top: 50px;
