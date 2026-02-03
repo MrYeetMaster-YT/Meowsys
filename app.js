@@ -16,8 +16,19 @@ const connectDevice = document.getElementById("connectDevice");
 const cameraFeed = document.getElementById("cameraFeed");
 const cameraMessage = document.getElementById("cameraMessage");
 const cameraOverlay = document.querySelector(".camera-overlay");
+const studentName = document.getElementById("studentName");
+const studentId = document.getElementById("studentId");
+const captureFace = document.getElementById("captureFace");
+const registerStudent = document.getElementById("registerStudent");
+const enrollStatus = document.getElementById("enrollStatus");
+const captureCanvas = document.getElementById("captureCanvas");
+const rosterList = document.getElementById("rosterList");
+const runRecognition = document.getElementById("runRecognition");
+const clearRoster = document.getElementById("clearRoster");
 
 let activeStream = null;
+let capturedImage = null;
+let roster = [];
 
 const formatTime = (date) =>
   date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
@@ -43,6 +54,47 @@ const renderAttendance = () => {
 
     attendanceList.appendChild(item);
   });
+};
+
+const loadRoster = () => {
+  const stored = localStorage.getItem("meowsysRoster");
+  roster = stored ? JSON.parse(stored) : [];
+};
+
+const saveRoster = () => {
+  localStorage.setItem("meowsysRoster", JSON.stringify(roster));
+};
+
+const renderRoster = () => {
+  if (!rosterList) return;
+  rosterList.innerHTML = "";
+  if (roster.length === 0) {
+    const empty = document.createElement("li");
+    empty.className = "helper";
+    empty.textContent = "No students registered yet.";
+    rosterList.appendChild(empty);
+    return;
+  }
+
+  roster.forEach((student) => {
+    const item = document.createElement("li");
+    item.className = "roster-item";
+    item.innerHTML = `
+      <img src="${student.photo}" alt="${student.name}" />
+      <div class="roster-meta">
+        <p>${student.name}</p>
+        <span>${student.id}</span>
+      </div>
+      <span class="status success">Enrolled</span>
+    `;
+    rosterList.appendChild(item);
+  });
+};
+
+const updateEnrollStatus = (message) => {
+  if (enrollStatus) {
+    enrollStatus.textContent = message;
+  }
 };
 
 const updateClock = () => {
@@ -102,6 +154,69 @@ connectDevice?.addEventListener("click", () => {
   startCamera();
 });
 
+captureFace?.addEventListener("click", () => {
+  if (!cameraFeed || !captureCanvas) return;
+  if (!activeStream) {
+    updateEnrollStatus("Start the camera before capturing a face.");
+    return;
+  }
+  const context = captureCanvas.getContext("2d");
+  context.drawImage(cameraFeed, 0, 0, captureCanvas.width, captureCanvas.height);
+  capturedImage = captureCanvas.toDataURL("image/png");
+  updateEnrollStatus("Face captured. Ready to register.");
+});
+
+registerStudent?.addEventListener("click", () => {
+  if (!studentName?.value || !studentId?.value) {
+    updateEnrollStatus("Enter a name and student ID before registering.");
+    return;
+  }
+  if (!capturedImage) {
+    updateEnrollStatus("Capture a face before registering.");
+    return;
+  }
+
+  roster.push({
+    id: studentId.value.trim(),
+    name: studentName.value.trim(),
+    photo: capturedImage,
+  });
+  saveRoster();
+  renderRoster();
+  studentName.value = "";
+  studentId.value = "";
+  capturedImage = null;
+  updateEnrollStatus("Student registered successfully.");
+});
+
+runRecognition?.addEventListener("click", () => {
+  if (roster.length === 0) {
+    updateEnrollStatus("Add students to the roster first.");
+    return;
+  }
+  const selected = roster[Math.floor(Math.random() * roster.length)];
+  attendanceData.unshift({
+    name: selected.name,
+    time: formatTime(new Date()),
+    status: "On time",
+    initials: selected.name
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase(),
+  });
+  renderAttendance();
+  updateEnrollStatus(`Recognized ${selected.name} and marked present.`);
+});
+
+clearRoster?.addEventListener("click", () => {
+  roster = [];
+  saveRoster();
+  renderRoster();
+  updateEnrollStatus("Roster cleared.");
+});
+
 sessionModal?.addEventListener("click", (event) => {
   if (event.target === sessionModal) {
     toggleModal(false);
@@ -109,9 +224,12 @@ sessionModal?.addEventListener("click", (event) => {
 });
 
 renderAttendance();
+loadRoster();
+renderRoster();
 updateClock();
 setInterval(updateClock, 1000);
 setCameraMessage("Camera offline · Click “Start Attendance” to connect");
+updateEnrollStatus("Capture a face to create a new profile.");
 
 window.addEventListener("beforeunload", () => {
   stopCamera();

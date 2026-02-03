@@ -158,6 +158,31 @@
             </div>
           </article>
 
+          <article class="panel">
+            <div class="panel-header">
+              <h3>Register new student</h3>
+              <span class="badge">Enrollment</span>
+            </div>
+            <div class="enroll">
+              <div class="enroll-grid">
+                <label>
+                  <span>Name</span>
+                  <input type="text" id="studentName" placeholder="e.g. Avery Johnson" />
+                </label>
+                <label>
+                  <span>Student ID</span>
+                  <input type="text" id="studentId" placeholder="e.g. STU-1042" />
+                </label>
+              </div>
+              <div class="enroll-actions">
+                <button class="secondary-btn" id="captureFace">Capture face</button>
+                <button class="primary-btn" id="registerStudent">Register student</button>
+              </div>
+              <p class="helper" id="enrollStatus">Capture a face to create a new profile.</p>
+              <canvas id="captureCanvas" width="320" height="180"></canvas>
+            </div>
+          </article>
+
           <article class="panel tall" id="insights">
             <div class="panel-header">
               <h3>AI insights</h3>
@@ -186,6 +211,17 @@
                 </div>
               </div>
             </div>
+          </article>
+
+          <article class="panel tall">
+            <div class="panel-header">
+              <h3>Recognized roster</h3>
+              <div class="panel-actions">
+                <button class="ghost-btn small" id="runRecognition">Run recognition</button>
+                <button class="ghost-btn small" id="clearRoster">Clear</button>
+              </div>
+            </div>
+            <ul class="roster-list" id="rosterList"></ul>
           </article>
         </div>
       </section>

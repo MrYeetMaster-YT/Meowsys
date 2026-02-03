@@ -386,6 +386,12 @@ button {
   margin-bottom: 18px;
 }
 
+.panel-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .badge {
   padding: 6px 12px;
   border-radius: 999px;
@@ -404,6 +410,50 @@ button {
   list-style: none;
   display: grid;
   gap: 16px;
+}
+
+.enroll {
+  display: grid;
+  gap: 16px;
+}
+
+.enroll-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.enroll label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.enroll input {
+  background: rgba(7, 10, 22, 0.8);
+  border: 1px solid rgba(125, 249, 255, 0.18);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.enroll-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.helper {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+#captureCanvas {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px dashed rgba(125, 249, 255, 0.25);
+  background: rgba(7, 10, 22, 0.5);
 }
 
 .attendance-item {
@@ -452,6 +502,39 @@ button {
 .timeline {
   display: grid;
   gap: 16px;
+}
+
+.roster-list {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.roster-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(10, 12, 25, 0.6);
+}
+
+.roster-item img {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(125, 249, 255, 0.2);
+}
+
+.roster-meta p {
+  font-weight: 600;
+}
+
+.roster-meta span {
+  color: var(--muted);
+  font-size: 0.8rem;
 }
 
 .timeline-item {
